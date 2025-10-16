@@ -1474,6 +1474,8 @@ function make_header_nav(data) {
 if (JSON.parse(localStorage.getItem("navdata")) === null) {
   localStorage.setItem("navdata", JSON.stringify([]))
 }
+
+
 frappe.ui.Page = class Page {
   constructor(opts) {
     $.extend(this, opts)
@@ -2495,6 +2497,7 @@ frappe.Application = class extends frappe.Application {
   }
 }
 
+
 frappe.views.Workspace = class customWorkspace {
   constructor(wrapper) {
     this.wrapper = $(wrapper)
@@ -2510,6 +2513,29 @@ frappe.views.Workspace = class customWorkspace {
     let home_p = $(".page-container")
     home_p.empty()
     var me = this
+
+    console.log("frappe.Chat is : ", frappe.Chat);
+    console.log(
+      "window.frappe_chat_instance is : ",
+      window.frappe_chat_instance
+    );
+    if (frappe.Chat) {
+      try {
+        // If the chat instance doesn't exist, create it for the first time.
+        if (!window.frappe_chat_instance) {
+          window.frappe_chat_instance = new frappe.Chat();
+          console.log("Frappe Chat Initialized Successfully.");
+        } else {
+          // If the instance already exists, it means the header was just
+          // re-rendered. We just need to re-attach the events to the new icon.
+          window.frappe_chat_instance.setup_events();
+          console.log("Frappe Chat events re-attached to new header.");
+        }
+      } catch (e) {
+        console.error("Failed to initialize or re-bind Frappe Chat:", e);
+        /* noop */
+      }
+    }
 
     frappe.call({
       method: "rasiin_design.api.template.app_page",

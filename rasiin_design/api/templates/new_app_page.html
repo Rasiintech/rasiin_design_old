@@ -17,7 +17,8 @@ a {
   background-color: #0C4872;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 20px;
   padding: 10px 50px;
 }
 
@@ -175,12 +176,20 @@ a {
 
 <section class="home_page_sec">
   <div class="home_page_header">
-    <div></div>
     <div class="home_page_header_right">
       <span style="color: white;">{{frappe.db.get_value("User" , frappe.session.user , "full_name")}}</span>
-      <!-- <img class="admin_img" src="/files/depositphotos_137014128-stock-illustration-user-profile-icon (1).jpg" alt="imgage" /> -->
        <i class="fas fa-user-circle text-[#fff] fa-lg text-3xl"></i>
     </div>
+
+    <div>
+       <div class="nav-item dropdown dropdown-notifications dropdown-mobile chat-navbar-icon" title="Show Chats">
+        <i class="fas fa-comments" style="color:#fff;"></i>
+        <span class="badge" id="chat-notification-count"></span>
+        </div>
+    </div>
+
+  
+
 
     <div class="home_page_dropdown">
       <span onclick="frappe.ui.toolbar.route_to_user()">My setting</span>
@@ -192,23 +201,6 @@ a {
   <div class="home_page_app_msg">
     <span>Hi 👋, Welcome {{frappe.db.get_value("User" , frappe.session.user , "full_name")}}</span>
   </div>
-
-  <!-- <div class="home_page_apps">
-    {% for d in data %}
-    <a class="app_btn home_page_app" id="{{d.name}}">
-      <div class="home_page_app_image">
-        {% if d.image_icon %}
-            <img class="home_page_app_img" src="{{ d.image_icon }}" alt="image" />
-        {% elif d.icon %}
-            <i class="fas {{ d.icon }} text-[#0C4872] fa-lg text-3xl home_page_app_img"></i>
-        {% else %}
-            <img class="home_page_app_img" src="/files/images.png" alt="image" />
-        {% endif %}
-    </div>
-      <span class="home_page_app_label" id="{{d.name}}">{{d.label}}</span>
-    </a>
-    {% endfor %}
-  </div> -->
 
    
                 <div class="home_page_apps">
